@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.description = 'Suggested solutions to errors for beginners in Japanese (frequent errors).'
   spec.homepage = 'https://github.com/Judeeeee/wakaba'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 2.6.0'
+  spec.required_ruby_version = '>= 2.7.0'
 
   spec.metadata['homepage_uri'] = spec.homepage
   # Specify which files should be added to the gem when it is released.

@@ -4,43 +4,43 @@ require_relative 'wakaba/version'
 
 # main module
 module Wakaba
-
   class Error < StandardError; end
+
   # propose a solution in Japanese
   module ExceptionJp
     def output_message(error_type)
       case error_type
       when NoMethodError
-        <<~EOS
+        <<~SUGGESTION
 
           🧐もしかして:
             - #{name}という名前のメソッドは存在しないかも？
             - #{name}を呼び出したけど、レシーバがnilかも？
-        EOS
+        SUGGESTION
       when NameError
-        <<~EOS
+        <<~SUGGESTION
 
           🧐もしかして:
             - #{name}がタイポかも？
             - 必要なrequireを忘れているかも？
-        EOS
+        SUGGESTION
       when TypeError
-        <<~EOS
+        <<~SUGGESTION
 
           🧐期待していない型がメソッドの引数に渡されているかも？
-        EOS
+        SUGGESTION
       when ArgumentError
-        <<~EOS
+        <<~SUGGESTION
 
           🧐もしかして:
             - メソッドの引数の数が違うかも？
             - メソッドに渡した値が期待した値ではないかも？
-        EOS
+        SUGGESTION
       when ZeroDivisionError
-        <<~EOS
+        <<~SUGGESTION
 
           🧐0で除算した場合にこのエラーが発生するよ
-        EOS
+        SUGGESTION
       end
     end
 
