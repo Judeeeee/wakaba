@@ -2,13 +2,13 @@
 
 RSpec.describe Wakaba do
   it 'Expect a NameError message' do
-    error = NameError.new
-    expect(error.output_message(error)).to include('という名前のメソッドは存在しないかも')
+    error = NameError.new(NameError, 'argument')
+    expect(error.output_message(error)).to include('argumentがタイポかも？')
   end
 
   it 'Expect a NoMethodError message' do
-    error = NoMethodError.new
-    expect(error.output_message(error)).to include('がタイポかも？')
+    error = NoMethodError.new(NoMethodError, 'argument')
+    expect(error.output_message(error)).to include('argumentという名前のメソッド')
   end
 
   it 'Expect a TypeError message' do
