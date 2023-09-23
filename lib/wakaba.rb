@@ -4,73 +4,53 @@ require_relative 'wakaba/version'
 
 module Wakaba
   class Error < StandardError; end
-
   module ExceptionJp
-    def message
-      case self
-      when NameError
-        "
-        \e[31m#{self}\e[0m
 
-        🧐もしかして:
-          - #{name}がタイポかも？
-          - #{name}を呼び出すためのrequireを忘れているかも？
-        "
-
+    def output_message(error_type)
+      case error_type
       when NoMethodError
-        "
-        \e[31m#{self}\e[0m
+        <<~EOS
 
         🧐もしかして:
           - #{name}という名前のメソッドは存在しないかも？
           - #{name}を呼び出したけど、レシーバがnilかも？
-        "
+        EOS
+      when NameError
+        <<~EOS
 
+        🧐もしかして:
+          - #{name}がタイポかも？
+          - 必要なrequireを忘れているかも？
+        EOS
       when TypeError
-        "
-        \e[31m#{self}\e[0m
+        <<~EOS
 
         🧐期待していない型がメソッドの引数に渡されているかも？
-        "
+        EOS
       when ArgumentError
-        "
-        \e[31m#{self}\e[0m
+        <<~EOS
 
         🧐もしかして:
           - メソッドの引数の数が違うかも？
           - メソッドに渡した値が期待した値ではないかも？
-        "
+        EOS
       when ZeroDivisionError
-        "
-        \e[31m#{self}\e[0m
+        <<~EOS
 
         🧐0で除算した場合にこのエラーが発生するよ
-        "
-      when SystemStackerror
-        "
-        \e[31m#{self}\e[0m
+        EOS
+      end
+    end
 
-        🧐無限ループの場合にこのエラーが発生するよ
-        "
-      when Loaderror
-        "
-        \e[31m#{self}\e[0m
-
-        🧐もしかして:
-          - requireしたいファイルのパスかライブラリ名が間違っているかも？
-          - requireしたgemが実行環境にないかも？
-        "
-      when SyntaxError
-        "
-        \e[31m#{self}\e[0m
-
-        🧐end,カンマ,括弧の数を確認してみよう
-        "
+    def message
+      if self
+        error_type = self
+        puts "\e[31m#{self}\e[0m"
+        output_message(error_type)
       else
         super
       end
     end
   end
-
   Exception.prepend(ExceptionJp)
 end
