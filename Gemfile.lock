@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wakaba (0.1.0)
+    wakaba (0.2.0)
 
 GEM
   remote: https://rubygems.org/
