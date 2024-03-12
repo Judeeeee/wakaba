@@ -8,8 +8,8 @@ module Wakaba
 
   # propose a solution in Japanese
   module ExceptionJp
-    def output_message(error_type)
-      case error_type
+    def output_message
+      case self
       when NoMethodError
         <<~SUGGESTION
 
@@ -73,9 +73,8 @@ module Wakaba
 
     def message
       if self
-        error_type = self
         puts "\e[31m#{self}\e[0m"
-        output_message(error_type)
+        output_message
       else
         super
       end
